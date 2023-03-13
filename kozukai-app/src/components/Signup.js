@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Typography, Alert, Card, Box, TextField, Button } from "@mui/material";
-import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { CardContent } from "@mui/material";
+import { useSignupMutation } from "../features/auth";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const { signup } = useAuth();
+  const [signup, { isLoading, isSuccess, isError }] = useSignupMutation();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
@@ -23,7 +25,7 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      await signup(email, password);
+      signup({ email, password, name });
       navigation("/");
     } catch {
       setError("Failed to create an account");
@@ -31,6 +33,11 @@ export default function Signup() {
 
     setLoading(false);
   }
+
+  const handleNameChange = (event) => {
+    event.preventDefault();
+    setName(event.target.value);
+  };
 
   const handleEmailChange = (event) => {
     event.preventDefault();
@@ -58,6 +65,15 @@ export default function Signup() {
             </Alert>
           )}
           <Box component="form" onSubmit={handleSubmit}>
+            <TextField
+              id="name"
+              label="Name"
+              type="text"
+              required
+              value={name}
+              onChange={handleNameChange}
+              sx={{ width: "100%", marginBottom: "10px" }}
+            />
             <TextField
               id="email"
               label="Email"
