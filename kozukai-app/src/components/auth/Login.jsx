@@ -45,10 +45,19 @@ export default function Login() {
   };
 
   return (
-    <React.Fragment>
-      <Card sx={{ backgroundColor: theme.palette.primary.light, py: 4, px: 8 }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Card
+        sx={{
+          backgroundColor: theme.palette.secondary.light,
+          py: 4,
+          px: 8,
+          maxWidth: "600px",
+        }}
+      >
         <CardContent>
-          <Typography variant="h1">Log In</Typography>
+          <Typography variant="h1" sx={{ pb: 2 }}>
+            Log In
+          </Typography>
           {error && <Alert variant="danger">{error}</Alert>}
           <Box component="form" onSubmit={handleSubmit}>
             <TextField
@@ -73,7 +82,7 @@ export default function Login() {
               disabled={loading}
               type="submit"
               variant="contained"
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", maxWidth: "175px", mt: 2 }}
             >
               Log In
             </Button>
@@ -83,6 +92,6 @@ export default function Login() {
       <Typography sx={{ pt: 1 }}>
         Need an account? <Link to="/signup">Sign Up</Link>
       </Typography>
-    </React.Fragment>
+    </Box>
   );
 }

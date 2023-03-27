@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -8,6 +8,7 @@ import { store } from "./contexts/store";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import Task from "./components/tasks/Task";
 
 function App() {
   let colorTheme = createTheme({
@@ -22,6 +23,19 @@ function App() {
         main: "#F8476F",
         dark: "#392F5A",
       },
+      // success: {
+      //   light: "#EDF7ED",
+      //   main: "rgba(25, 155, 211, 0.04)",
+      // },
+      // warning: {
+      //   light: "#FFF4E5",
+      // },
+      // info: {
+      //   light: "#E5F6FE",
+      // },
+      // error: {
+      //   light: "#FDEDED",
+      // },
     },
   });
 
@@ -119,22 +133,26 @@ function App() {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         {/* <AuthProvider> */}
-        <Container
+        <Box
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             minHeight: "100vh",
+            backgroundColor: theme.palette.primary.light,
           }}
         >
-          <div className="w-100" style={{ maxWidth: "400px" }}>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={<PrivateRoute>Hi it's working!</PrivateRoute>}
-              />
-              {/* <Route
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Task />
+                </PrivateRoute>
+              }
+            />
+            {/* <Route
                 path="/update-profile"
                 element={
                   <PrivateRoute>
@@ -142,11 +160,10 @@ function App() {
                   </PrivateRoute>
                 }
               /> */}
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </div>
-        </Container>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Box>
         {/* </AuthProvider> */}
       </Provider>
     </ThemeProvider>

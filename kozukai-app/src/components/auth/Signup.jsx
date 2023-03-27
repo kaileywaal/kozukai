@@ -56,8 +56,15 @@ export default function Signup() {
   };
 
   return (
-    <React.Fragment>
-      <Card sx={{ backgroundColor: theme.palette.primary.light, py: 4, px: 8 }}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Card
+        sx={{
+          backgroundColor: theme.palette.secondary.light,
+          py: 4,
+          px: 8,
+          maxWidth: "600px",
+        }}
+      >
         <CardContent>
           <Typography variant="h1" sx={{ pb: 1 }}>
             Sign Up
@@ -108,7 +115,7 @@ export default function Signup() {
               variant="contained"
               disabled={loading}
               type="submit"
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", maxWidth: "175px", mt: 2 }}
             >
               Sign Up
             </Button>
@@ -118,6 +125,6 @@ export default function Signup() {
       <Typography sx={{ pt: 1 }}>
         Already have an account? <Link to="/login">Log in</Link>
       </Typography>
-    </React.Fragment>
+    </Box>
   );
 }
