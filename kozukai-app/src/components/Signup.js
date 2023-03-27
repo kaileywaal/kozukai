@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Typography, Alert, Card, Box, TextField, Button } from "@mui/material";
 // import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { styled } from "@mui/material/styles";
 import { CardContent } from "@mui/material";
 import { useSignupMutation } from "../features/auth";
 

@@ -1,10 +1,9 @@
-import React from 'react'
-import { Route, Navigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useGetUserQuery } from "../features/auth";
 
 export default function PrivateRoute({ children }) {
-    const { currentUser } = useAuth()
+  const { data, isLoading } = useGetUserQuery();
 
-    return currentUser ? children : <Navigate replace to="/login" />
-    
+  return !isLoading && (data ? children : <Navigate replace to="/login" />);
 }

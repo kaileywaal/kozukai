@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
@@ -10,14 +9,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useLoginMutation } from "../features/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
+  const [login, data, isLoading] = useLoginMutation();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,13 +25,11 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      await login(email, password);
+      await login({ email, password }).then(console.log(data));
       navigation("/");
     } catch {
       setError("Failed to sign in");
     }
-
-    setLoading(false);
   }
 
   const handleEmailChange = (event) => {
@@ -78,7 +76,6 @@ export default function Login() {
               Log In
             </Button>
           </Box>
-          <Link to="/forgot-password">Forgot Password?</Link>
         </CardContent>
       </Card>
       <Typography variant="body1">
