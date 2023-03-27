@@ -10,6 +10,8 @@ import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import Task from "./components/tasks/Task";
 import TaskList from "./components/tasks/TaskList";
+import AddTask from "./components/tasks/AddTask";
+import TaskPage from "./pages/TaskPage";
 
 function App() {
   let colorTheme = createTheme({
@@ -149,7 +151,7 @@ function App() {
               path="/"
               element={
                 <PrivateRoute>
-                  <TaskList />
+                  <TaskPage />
                 </PrivateRoute>
               }
             />
