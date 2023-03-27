@@ -16,7 +16,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-export default function Task() {
+export default function Task({ title, value }) {
   const theme = useTheme();
 
   const handleClick = () => {
@@ -24,13 +24,13 @@ export default function Task() {
   };
 
   return (
-    <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 2 }}>
+    <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 1 }}>
       <Box sx={{ display: "flex", width: "600px", pr: 2 }}>
         <Box
           sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
         >
-          <Typography>Task name</Typography>
-          <Typography>$3</Typography>
+          <Typography>{title}</Typography>
+          <Typography>${value}</Typography>
         </Box>
       </Box>
       <Box>
@@ -43,6 +43,9 @@ export default function Task() {
               minWidth: "40px",
               width: "40px",
               mr: 1,
+              "&:hover": {
+                backgroundColor: "#cbe8cb",
+              },
             }}
           >
             <CheckIcon color="success" />
