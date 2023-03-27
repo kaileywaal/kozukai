@@ -9,7 +9,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useLoginMutation } from "../features/auth";
+import { useLoginMutation } from "../../features/auth";
+import { useTheme } from "@mui/material";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
   const [login, data, isLoading] = useLoginMutation();
+  const theme = useTheme();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -44,7 +46,7 @@ export default function Login() {
 
   return (
     <React.Fragment>
-      <Card>
+      <Card sx={{ backgroundColor: theme.palette.primary.light, py: 4, px: 8 }}>
         <CardContent>
           <Typography variant="h1">Log In</Typography>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -78,7 +80,7 @@ export default function Login() {
           </Box>
         </CardContent>
       </Card>
-      <Typography variant="body1">
+      <Typography sx={{ pt: 1 }}>
         Need an account? <Link to="/signup">Sign Up</Link>
       </Typography>
     </React.Fragment>

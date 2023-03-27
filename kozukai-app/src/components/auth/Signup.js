@@ -3,7 +3,8 @@ import { Typography, Alert, Card, Box, TextField, Button } from "@mui/material";
 // import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { CardContent } from "@mui/material";
-import { useSignupMutation } from "../features/auth";
+import { useSignupMutation } from "../../features/auth";
+import { useTheme } from "@mui/material";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ export default function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigation = useNavigate();
+  const theme = useTheme();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -55,9 +57,11 @@ export default function Signup() {
 
   return (
     <React.Fragment>
-      <Card>
+      <Card sx={{ backgroundColor: theme.palette.primary.light, py: 4, px: 8 }}>
         <CardContent>
-          <Typography variant="h1">Sign Up</Typography>
+          <Typography variant="h1" sx={{ pb: 1 }}>
+            Sign Up
+          </Typography>
           {error && (
             <Alert severity="error" sx={{ marginBottom: "10px" }}>
               {error}
@@ -111,9 +115,9 @@ export default function Signup() {
           </Box>
         </CardContent>
       </Card>
-      <div>
+      <Typography sx={{ pt: 1 }}>
         Already have an account? <Link to="/login">Log in</Link>
-      </div>
+      </Typography>
     </React.Fragment>
   );
 }
