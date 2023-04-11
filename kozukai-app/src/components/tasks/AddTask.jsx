@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Card, Button, TextField, Modal, Typography, Box } from "@mui/material";
+import {
+  Card,
+  Button,
+  TextField,
+  Modal,
+  Typography,
+  Box,
+  InputAdornment,
+} from "@mui/material";
 import { useAddTaskMutation } from "../../features/tasks";
 import { useTheme } from "@mui/material";
 import { actionColors } from "../../contexts/styles";
@@ -44,6 +52,10 @@ export default function AddTask() {
     setModalOpen(true);
   };
 
+  const isSubmitDisabled = () => {
+    return value === "" || title.trim() === "";
+  };
+
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "flex-end", m: 2 }}>
@@ -81,6 +93,11 @@ export default function AddTask() {
             required
             value={value}
             onChange={handleValueChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
             sx={{ width: "100%", marginBottom: "10px" }}
           />
           <Button
@@ -106,6 +123,7 @@ export default function AddTask() {
           <Button
             variant="contained"
             onClick={handleAddTask}
+            disabled={isSubmitDisabled()}
             sx={{
               width: "100%",
               maxWidth: "175px",

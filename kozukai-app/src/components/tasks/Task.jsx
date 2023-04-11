@@ -1,42 +1,125 @@
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Checkbox from "../ui/Checkbox";
 import {
   Card,
-  CardContent,
   Box,
   Button,
   Alert,
   TextField,
   Typography,
   Tooltip,
+  InputAdornment,
 } from "@mui/material";
 import { useTheme } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
+import { ClickAwayListener } from "@mui/base";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useUpdateTaskMutation } from "../../features/tasks";
 
-export default function Task({ title, value }) {
-  const theme = useTheme();
+export default function Task({ task }) {
+  const { id, title, value, created_at } = task;
 
-  const handleClick = () => {
+  const [editTitle, setEditTitle] = useState(false);
+  const [newTitle, setNewTitle] = useState(title);
+  const [editValue, setEditValue] = useState(false);
+  const [newValue, setNewValue] = useState(value.toFixed(2));
+
+  const [triggerUpdateTaskMutation, result] = useUpdateTaskMutation();
+
+  const handleTrackTaskClick = () => {
     //TODO:
+  };
+
+  const handleTitleClick = () => {
+    setEditTitle(true);
+  };
+
+  const handleValueClick = () => {
+    setEditValue(true);
+  };
+
+  const handleUpdateTitle = (e) => {
+    setNewTitle(e.target.value);
+  };
+
+  const handleUpdateValue = (e) => {
+    setNewValue(parseFloat(e.target.value).toFixed(2));
+  };
+
+  const handleSubmitUpdates = () => {
+    setEditTitle(false);
+    setEditValue(false);
+    const updatedTask = {
+      task_id: id,
+      title: newTitle,
+      value: newValue,
+      created_at: created_at,
+    };
+    if (newTitle !== title || newValue !== value) {
+      triggerUpdateTaskMutation(updatedTask)
+        .unwrap()
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };
+
+  const handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      handleSubmitUpdates();
+    }
   };
 
   return (
     <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 1 }}>
-      <Box sx={{ display: "flex", width: "600px", pr: 2 }}>
+      <Box sx={{ display: "flex", width: "60vw", pr: 2 }}>
         <Box
           sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
         >
-          <Typography>{title}</Typography>
-          <Typography>${value}</Typography>
+          {editTitle ? (
+            <ClickAwayListener onClickAway={handleSubmitUpdates}>
+              <TextField
+                variant="standard"
+                defaultValue={newTitle}
+                onChange={(e) => handleUpdateTitle(e)}
+                onKeyDown={handleEnter}
+                autoFocus
+              ></TextField>
+            </ClickAwayListener>
+          ) : (
+            <Typography onClick={handleTitleClick}>{newTitle}</Typography>
+          )}
+          {editValue ? (
+            <ClickAwayListener onClickAway={handleSubmitUpdates}>
+              <TextField
+                variant="standard"
+                defaultValue={newValue}
+                onChange={(e) => handleUpdateValue(e)}
+                onKeyDown={handleEnter}
+                autoFocus
+                type="number"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+                sx={{
+                  width: "100px",
+                  "& input": {
+                    textAlign: "right",
+                  },
+                }}
+              ></TextField>
+            </ClickAwayListener>
+          ) : (
+            <Typography onClick={handleValueClick}>${newValue}</Typography>
+          )}
         </Box>
       </Box>
       <Box>
         <Tooltip title="Track Task">
           <Button
-            onClick={handleClick}
+            onClick={handleTrackTaskClick}
             sx={{
               backgroundColor: "#EDF7ED",
               borderRadius: "4px",
