@@ -14,7 +14,11 @@ import CheckIcon from "@mui/icons-material/Check";
 import { ClickAwayListener } from "@mui/base";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useUpdateTaskMutation } from "../../features/tasks";
+import {
+  useUpdateTaskMutation,
+  useDeleteTaskMutation,
+} from "../../features/tasks";
+import { actionColors } from "../../contexts/styles";
 
 export default function Task({ task }) {
   const { id, title, value, created_at } = task;
@@ -23,8 +27,10 @@ export default function Task({ task }) {
   const [newTitle, setNewTitle] = useState(title);
   const [editValue, setEditValue] = useState(false);
   const [newValue, setNewValue] = useState(value.toFixed(2));
+  const [toDelete, setToDelete] = useState(false);
 
-  const [triggerUpdateTaskMutation, result] = useUpdateTaskMutation();
+  const [triggerUpdateTaskMutation] = useUpdateTaskMutation();
+  const [triggerDeleteTaskMutation, isLoading] = useDeleteTaskMutation();
 
   const handleTrackTaskClick = () => {
     //TODO:
@@ -70,71 +76,101 @@ export default function Task({ task }) {
     }
   };
 
+  const handleDeleteTask = () => {
+    setToDelete(true);
+    triggerDeleteTaskMutation(task);
+  };
+
   return (
-    <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 1 }}>
-      <Box sx={{ display: "flex", width: "60vw", pr: 2 }}>
-        <Box
-          sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}
-        >
-          {editTitle ? (
-            <ClickAwayListener onClickAway={handleSubmitUpdates}>
-              <TextField
-                variant="standard"
-                defaultValue={newTitle}
-                onChange={(e) => handleUpdateTitle(e)}
-                onKeyDown={handleEnter}
-                autoFocus
-              ></TextField>
-            </ClickAwayListener>
-          ) : (
-            <Typography onClick={handleTitleClick}>{newTitle}</Typography>
-          )}
-          {editValue ? (
-            <ClickAwayListener onClickAway={handleSubmitUpdates}>
-              <TextField
-                variant="standard"
-                defaultValue={newValue}
-                onChange={(e) => handleUpdateValue(e)}
-                onKeyDown={handleEnter}
-                autoFocus
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
-                  ),
-                }}
-                sx={{
-                  width: "100px",
-                  "& input": {
-                    textAlign: "right",
-                  },
-                }}
-              ></TextField>
-            </ClickAwayListener>
-          ) : (
-            <Typography onClick={handleValueClick}>${newValue}</Typography>
-          )}
-        </Box>
-      </Box>
-      <Box>
-        <Tooltip title="Track Task">
-          <Button
-            onClick={handleTrackTaskClick}
+    !toDelete && (
+      <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 1 }}>
+        <Box sx={{ display: "flex", width: "60vw", pr: 2 }}>
+          <Box
             sx={{
-              backgroundColor: "#EDF7ED",
-              borderRadius: "4px",
-              minWidth: "40px",
-              width: "40px",
-              mr: 1,
-              "&:hover": {
-                backgroundColor: "#cbe8cb",
-              },
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
-            <CheckIcon color="success" />
-          </Button>
-        </Tooltip>
-      </Box>
-    </Card>
+            {editTitle ? (
+              <ClickAwayListener onClickAway={handleSubmitUpdates}>
+                <TextField
+                  variant="standard"
+                  defaultValue={newTitle}
+                  onChange={(e) => handleUpdateTitle(e)}
+                  onKeyDown={handleEnter}
+                  autoFocus
+                ></TextField>
+              </ClickAwayListener>
+            ) : (
+              <Typography onClick={handleTitleClick}>{newTitle}</Typography>
+            )}
+            {editValue ? (
+              <ClickAwayListener onClickAway={handleSubmitUpdates}>
+                <TextField
+                  variant="standard"
+                  defaultValue={newValue}
+                  onChange={(e) => handleUpdateValue(e)}
+                  onKeyDown={handleEnter}
+                  autoFocus
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    width: "100px",
+                    "& input": {
+                      textAlign: "right",
+                    },
+                  }}
+                ></TextField>
+              </ClickAwayListener>
+            ) : (
+              <Typography onClick={handleValueClick}>${newValue}</Typography>
+            )}
+          </Box>
+        </Box>
+        <Box>
+          <Tooltip title="Track Task">
+            <Button
+              onClick={handleTrackTaskClick}
+              sx={{
+                backgroundColor: `${actionColors.success.light}`,
+                borderRadius: "4px",
+                minWidth: "40px",
+                width: "40px",
+                mr: 1,
+                "&:hover": {
+                  backgroundColor: `${actionColors.success.medium}`,
+                },
+              }}
+            >
+              <CheckIcon color="success" />
+            </Button>
+          </Tooltip>
+        </Box>
+        <Box>
+          <Tooltip title="Delete Task">
+            <Button
+              onClick={handleDeleteTask}
+              sx={{
+                backgroundColor: `${actionColors.error.light}`,
+                borderRadius: "4px",
+                minWidth: "40px",
+                width: "40px",
+                mr: 1,
+                "&:hover": {
+                  backgroundColor: `${actionColors.error.medium}`,
+                },
+              }}
+            >
+              <DeleteOutlineIcon color="error" />
+            </Button>
+          </Tooltip>
+        </Box>
+      </Card>
+    )
   );
 }
