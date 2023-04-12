@@ -15,11 +15,10 @@ export default function HistoryList() {
   return (
     <Card
       sx={{
-        width: "300px",
+        width: "100%",
         mb: 1,
         overflow: "auto",
-        maxHeight: "50vh",
-        display: { xs: "none", sm: "none", md: "block" },
+        maxHeight: { xs: "200px", md: "50vh" },
       }}
     >
       {!isLoading &&

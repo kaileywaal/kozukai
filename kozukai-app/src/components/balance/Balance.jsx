@@ -23,8 +23,8 @@ export default function Balance() {
   return (
     <Card
       sx={{
-        width: "300px",
-        height: "180px",
+        width: "100%",
+        height: "200px",
         mb: 2,
         background: `linear-gradient(110deg, ${theme.palette.custom.dark}, ${theme.palette.custom.medium}, ${theme.palette.secondary.main}, ${theme.palette.custom.light})`,
       }}

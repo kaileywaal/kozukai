@@ -56,18 +56,18 @@ function App() {
         fontFamily: ["Poppins", "sans-serif"].join(","),
       },
       h4: {
-        color: colorTheme.palette.primary.main,
+        color: colorTheme.palette.primary.dark,
         fontSize: "1.6rem",
         fontWeight: "500",
         fontFamily: ["Poppins", "sans-serif"].join(","),
       },
       h5: {
-        color: colorTheme.palette.primary.main,
+        color: colorTheme.palette.primary.dark,
         fontFamily: ["Poppins", "sans-serif"].join(","),
         fontSize: "1.4rem",
       },
       h6: {
-        color: colorTheme.palette.secondary.dark,
+        color: colorTheme.palette.primary.dark,
         fontFamily: ["Poppins", "sans-serif"].join(","),
       },
       body1: {
