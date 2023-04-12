@@ -18,27 +18,19 @@ function App() {
     palette: {
       primary: {
         light: "#FAF9FF",
-        main: "#199BD3",
-        dark: "#201E3A",
+        main: "#4761E6",
+        dark: "#383E68",
       },
       secondary: {
-        light: "#FFFFFF",
+        light: "#F7F8FD",
         main: "#F8476F",
-        dark: "#392F5A",
+        dark: "#4761E6",
       },
-      // success: {
-      //   light: "#EDF7ED",
-      //   main: "rgba(25, 155, 211, 0.04)",
-      // },
-      // warning: {
-      //   light: "#FFF4E5",
-      // },
-      // info: {
-      //   light: "#E5F6FE",
-      // },
-      // error: {
-      //   light: "#FDEDED",
-      // },
+      custom: {
+        light: "#F49D85",
+        medium: "#B83BED",
+        dark: "#63BCF9",
+      },
     },
   });
 
@@ -89,10 +81,24 @@ function App() {
       },
     },
     components: {
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: "8px",
+          },
+        },
+      },
+      MuiTextInput: {
+        styleOverrides: {
+          root: {
+            marginBottom: 2,
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: "40px",
+            borderRadius: "8px",
             padding: "8px 1.4rem",
             fontSize: "0.8rem",
             fontFamily: ["Poppins", "sans-serif"].join(","),
@@ -110,7 +116,7 @@ function App() {
             border: "2px solid",
             "&:hover": {
               border: `2px solid ${colorTheme.palette.primary.main}`,
-              backgroundColor: colorTheme.palette.primary.main,
+              backgroundColor: "transparent",
               color: colorTheme.palette.secondary.light,
             },
           },
@@ -139,8 +145,7 @@ function App() {
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            pt: 8,
             minHeight: "100vh",
             backgroundColor: theme.palette.primary.light,
           }}

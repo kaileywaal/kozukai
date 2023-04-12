@@ -1,23 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Box,
   Button,
-  Alert,
   TextField,
   Typography,
   Tooltip,
   InputAdornment,
 } from "@mui/material";
-import { useTheme } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { ClickAwayListener } from "@mui/base";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
 } from "../../features/tasks";
+import { useAddHistoryMutation } from "../../features/history";
 import { actionColors } from "../../contexts/styles";
 
 export default function Task({ task }) {
@@ -30,10 +28,18 @@ export default function Task({ task }) {
   const [toDelete, setToDelete] = useState(false);
 
   const [triggerUpdateTaskMutation] = useUpdateTaskMutation();
-  const [triggerDeleteTaskMutation, isLoading] = useDeleteTaskMutation();
+  const [triggerDeleteTaskMutation] = useDeleteTaskMutation();
+  const [triggerAddHistoryMutation] = useAddHistoryMutation();
 
   const handleTrackTaskClick = () => {
-    //TODO:
+    triggerAddHistoryMutation(id)
+      .unwrap()
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleTitleClick = () => {
@@ -83,8 +89,8 @@ export default function Task({ task }) {
 
   return (
     !toDelete && (
-      <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 1 }}>
-        <Box sx={{ display: "flex", width: "60vw", pr: 2 }}>
+      <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 2 }}>
+        <Box sx={{ display: "flex", width: "100%", pr: 2 }}>
           <Box
             sx={{
               flexGrow: 1,
@@ -138,7 +144,7 @@ export default function Task({ task }) {
               onClick={handleTrackTaskClick}
               sx={{
                 backgroundColor: `${actionColors.success.light}`,
-                borderRadius: "4px",
+                borderRadius: "8px",
                 minWidth: "40px",
                 width: "40px",
                 mr: 1,
@@ -157,7 +163,7 @@ export default function Task({ task }) {
               onClick={handleDeleteTask}
               sx={{
                 backgroundColor: `${actionColors.error.light}`,
-                borderRadius: "4px",
+                borderRadius: "8px",
                 minWidth: "40px",
                 width: "40px",
                 mr: 1,

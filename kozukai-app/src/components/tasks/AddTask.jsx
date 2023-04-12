@@ -58,7 +58,7 @@ export default function AddTask() {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", m: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <Button variant="contained" onClick={handleModalOpen}>
           <AddIcon sx={{ pr: 1 }} />
           Add Item
