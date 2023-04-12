@@ -39,7 +39,7 @@ function App() {
       fontFamily: ["Poppins", "sans-serif"].join(","),
       h1: {
         color: colorTheme.palette.primary.dark,
-        fontSize: "4rem",
+        fontSize: "3rem",
         fontWeight: "600",
         fontFamily: ["Poppins", "sans-serif"].join(","),
       },
@@ -79,19 +79,25 @@ function App() {
         fontSize: "1rem",
         fontFamily: ["Poppins", "sans-serif"].join(","),
       },
+      overline: {
+        color: colorTheme.palette.primary.dark,
+        opacity: 0.7,
+        fontFamily: ["Poppins", "sans-serif"].join(","),
+      },
+      subtitle1: {
+        color: colorTheme.palette.primary.dark,
+        fontSize: "1rem",
+        fontFamily: ["Poppins", "sans-serif"].join(","),
+      },
     },
     components: {
       MuiCard: {
         styleOverrides: {
           root: {
             borderRadius: "8px",
-          },
-        },
-      },
-      MuiTextInput: {
-        styleOverrides: {
-          root: {
-            marginBottom: 2,
+            p: 1,
+            px: 3,
+            mb: 2,
           },
         },
       },
@@ -111,12 +117,16 @@ function App() {
           },
           contained: {
             color: colorTheme.palette.primary.light,
+            backgroundColor: colorTheme.palette.custom.medium,
+            "&:hover": {
+              backgroundColor: colorTheme.palette.custom.dark,
+            },
           },
           outlined: {
             border: "2px solid",
             "&:hover": {
               border: `2px solid ${colorTheme.palette.primary.main}`,
-              backgroundColor: "transparent",
+              backgroundColor: colorTheme.palette.primary.light,
               color: colorTheme.palette.secondary.light,
             },
           },
@@ -145,7 +155,6 @@ function App() {
         <Box
           sx={{
             display: "flex",
-            pt: 8,
             minHeight: "100vh",
             backgroundColor: theme.palette.primary.light,
           }}

@@ -1,9 +1,9 @@
 export const actionColors = {
   success: {
-    light: "#EDF7ED",
-    medium: "#cbe8cb",
-    main: "#4B8E4C",
-    dark: "#1E461F",
+    light: "#dfecbf",
+    medium: "#9cc539",
+    main: "#4f641d",
+    dark: "#9cc539",
   },
   warning: {
     light: "#FFF4E6",
@@ -12,10 +12,10 @@ export const actionColors = {
     dark: "#663B01",
   },
   error: {
-    light: "#FDEDED",
-    medium: "#f8c1c1",
-    main: "#D84746",
-    dark: "#5F2120",
+    light: "#fce2da",
+    medium: "#f9cec2",
+    main: "#c93b13",
+    dark: "#D84F90",
   },
   information: {
     light: "#E5F6FE",

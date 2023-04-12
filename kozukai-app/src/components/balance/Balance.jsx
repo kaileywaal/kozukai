@@ -3,15 +3,21 @@ import { Box, Typography, Card, useTheme } from "@mui/material";
 import { useGetHistoryQuery } from "../../features/history";
 
 export default function Balance() {
-  const { data: history, isLoading } = useGetHistoryQuery();
+  const {
+    data: history,
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetHistoryQuery();
   const theme = useTheme();
 
   const total = useMemo(() => {
-    if (!isLoading) {
+    if (!isLoading && !isFetching && !isError) {
       return history.reduce((acc, obj) => {
         return (acc += obj.task.value);
       }, 0);
     }
+    return 0;
   }, [history]);
 
   return (
@@ -19,6 +25,7 @@ export default function Balance() {
       sx={{
         width: "300px",
         height: "180px",
+        mb: 2,
         background: `linear-gradient(110deg, ${theme.palette.custom.dark}, ${theme.palette.custom.medium}, ${theme.palette.secondary.main}, ${theme.palette.custom.light})`,
       }}
     >

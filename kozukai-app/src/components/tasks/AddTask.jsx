@@ -58,7 +58,7 @@ export default function AddTask() {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button variant="contained" onClick={handleModalOpen}>
           <AddIcon sx={{ pr: 1 }} />
           Add Item
@@ -73,7 +73,13 @@ export default function AddTask() {
           alignItems: "center",
         }}
       >
-        <Card sx={{ maxWidth: "600px", padding: 6 }}>
+        <Card
+          sx={{
+            maxWidth: "600px",
+            padding: 6,
+            backgroundColor: theme.palette.primary.light,
+          }}
+        >
           <Typography variant="h3" sx={{ pb: 2 }}>
             New Task
           </Typography>
@@ -110,7 +116,7 @@ export default function AddTask() {
               mr: 1,
               border: `2px solid ${actionColors.error.main}`,
               color: actionColors.error.main,
-              backgroundColor: theme.palette.secondary.light,
+              backgroundColor: theme.palette.primary.light,
               "&:hover": {
                 border: `2px solid ${actionColors.error.dark}`,
                 color: actionColors.error.dark,
@@ -128,11 +134,6 @@ export default function AddTask() {
               width: "100%",
               maxWidth: "175px",
               mt: 2,
-              color: actionColors.information.light,
-              backgroundColor: actionColors.information.main,
-              "&:hover": {
-                backgroundColor: actionColors.information.dark,
-              },
             }}
           >
             Add task

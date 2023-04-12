@@ -1,16 +1,26 @@
 import TaskList from "../components/tasks/TaskList";
-import AddTask from "../components/tasks/AddTask";
+import TaskBar from "../components/tasks/TaskBar";
 import { Container, Box } from "@mui/material";
 import Balance from "../components/balance/Balance";
+import HistoryList from "../components/balance/HistoryList";
 
 function TaskPage() {
   return (
     <Container
-      sx={{ display: "flex", flexDirection: "row", gap: 4, flexWrap: "wrap" }}
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        gap: 4,
+        flexWrap: "wrap",
+        mt: 8,
+      }}
     >
-      <Balance />
+      <Box>
+        <Balance />
+        <HistoryList />
+      </Box>
       <Box sx={{ flexGrow: 1 }}>
-        <AddTask />
+        <TaskBar />
         <TaskList />
       </Box>
     </Container>

@@ -5,6 +5,7 @@ import { useGetTasksQuery } from "../../features/tasks";
 
 export default function TaskList() {
   const { data: tasks, isLoading } = useGetTasksQuery();
+
   return (
     <Box>
       {!isLoading &&

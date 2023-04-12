@@ -8,6 +8,7 @@ import {
   Alert,
   TextField,
   Typography,
+  Container,
 } from "@mui/material";
 import { useLoginMutation } from "../../features/auth";
 import { useTheme } from "@mui/material";
@@ -45,53 +46,67 @@ export default function Login() {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Card
+    <Container
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
+      <Box
         sx={{
-          backgroundColor: theme.palette.secondary.light,
-          py: 4,
-          px: 8,
-          maxWidth: "600px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <CardContent>
-          <Typography variant="h1" sx={{ pb: 2 }}>
-            Log In
-          </Typography>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Box component="form" onSubmit={handleSubmit}>
-            <TextField
-              id="email"
-              label="Email"
-              type="email"
-              required
-              value={email}
-              onChange={handleEmailChange}
-              sx={{ width: "100%", marginBottom: "10px" }}
-            />
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              required
-              value={password}
-              onChange={handlePasswordChange}
-              sx={{ width: "100%", marginBottom: "10px" }}
-            />
-            <Button
-              disabled={loading}
-              type="submit"
-              variant="contained"
-              sx={{ width: "100%", maxWidth: "175px", mt: 2 }}
-            >
+        <Card
+          sx={{
+            py: 4,
+            px: 8,
+            maxWidth: "600px",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h1" sx={{ pb: 2 }}>
               Log In
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
-      <Typography sx={{ pt: 1 }}>
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </Typography>
-    </Box>
+            </Typography>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Box component="form" onSubmit={handleSubmit}>
+              <TextField
+                id="email"
+                label="Email"
+                type="email"
+                required
+                value={email}
+                onChange={handleEmailChange}
+                sx={{ width: "100%", marginBottom: "10px" }}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                required
+                value={password}
+                onChange={handlePasswordChange}
+                sx={{ width: "100%", marginBottom: "10px" }}
+              />
+              <Button
+                disabled={loading}
+                type="submit"
+                variant="contained"
+                sx={{ width: "100%", maxWidth: "175px", mt: 2 }}
+              >
+                Log In
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+        <Typography sx={{ pt: 1 }}>
+          Need an account? <Link to="/signup">Sign Up</Link>
+        </Typography>
+      </Box>
+    </Container>
   );
 }

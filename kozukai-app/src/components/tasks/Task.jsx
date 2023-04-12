@@ -89,7 +89,9 @@ export default function Task({ task }) {
 
   return (
     !toDelete && (
-      <Card sx={{ display: "flex", alignItems: "center", p: 2, pl: 3, mb: 2 }}>
+      <Card
+        sx={{ display: "flex", alignItems: "center", p: 1.5, px: 3, mb: 2 }}
+      >
         <Box sx={{ display: "flex", width: "100%", pr: 2 }}>
           <Box
             sx={{
@@ -101,6 +103,8 @@ export default function Task({ task }) {
             {editTitle ? (
               <ClickAwayListener onClickAway={handleSubmitUpdates}>
                 <TextField
+                  fullWidth
+                  sx={{ pr: 2 }}
                   variant="standard"
                   defaultValue={newTitle}
                   onChange={(e) => handleUpdateTitle(e)}
@@ -126,7 +130,7 @@ export default function Task({ task }) {
                     ),
                   }}
                   sx={{
-                    width: "100px",
+                    width: "80px",
                     "& input": {
                       textAlign: "right",
                     },
@@ -153,7 +157,7 @@ export default function Task({ task }) {
                 },
               }}
             >
-              <CheckIcon color="success" />
+              <CheckIcon sx={{ color: actionColors.success.main }} />
             </Button>
           </Tooltip>
         </Box>
@@ -172,7 +176,7 @@ export default function Task({ task }) {
                 },
               }}
             >
-              <DeleteOutlineIcon color="error" />
+              <DeleteOutlineIcon sx={{ color: actionColors.error.main }} />
             </Button>
           </Tooltip>
         </Box>
