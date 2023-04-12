@@ -12,6 +12,11 @@ export const taskApi = createApi({
         method: "GET",
       }),
       providesTags: ["Task"],
+      transformResponse: (response) => {
+        return response.sort((taskA, taskB) => {
+          return taskB.created_at - taskA.created_at;
+        });
+      },
     }),
     addTask: builder.mutation({
       query: (task) => ({

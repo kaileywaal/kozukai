@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Typography,
-  Alert,
   Card,
   Box,
   TextField,
@@ -12,18 +11,16 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { CardContent } from "@mui/material";
 import { useSignupMutation } from "../../features/auth";
-import { useTheme } from "@mui/material";
+import AlertError from "../ui/errors/AlertError";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [signup, { isLoading, isSuccess, isError }] = useSignupMutation();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [signup, { isLoading }] = useSignupMutation();
+  const [error, setError] = useState(null);
   const navigation = useNavigate();
-  const theme = useTheme();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,16 +28,15 @@ export default function Signup() {
     if (password !== passwordConfirm) {
       return setError("Passwords do not match");
     }
-    try {
-      setError("");
-      setLoading(true);
-      signup({ email, password, name });
-      navigation("/");
-    } catch {
-      setError("Failed to create an account");
-    }
 
-    setLoading(false);
+    signup({ email, password, name })
+      .unwrap()
+      .then(() => {
+        navigation("/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   const handleNameChange = (event) => {
@@ -90,11 +86,7 @@ export default function Signup() {
             <Typography variant="h1" sx={{ pb: 1 }}>
               Sign Up
             </Typography>
-            {error && (
-              <Alert severity="error" sx={{ marginBottom: "10px" }}>
-                {error}
-              </Alert>
-            )}
+            {error && <AlertError errorMessage={error} />}
             <Box component="form" onSubmit={handleSubmit}>
               <TextField
                 id="name"
@@ -134,7 +126,7 @@ export default function Signup() {
               />
               <Button
                 variant="contained"
-                disabled={loading}
+                disabled={isLoading}
                 type="submit"
                 sx={{ width: "100%", maxWidth: "175px", mt: 2 }}
               >

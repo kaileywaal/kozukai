@@ -12,6 +12,11 @@ export const historyApi = createApi({
         method: "GET",
       }),
       providesTags: ["History"],
+      transformResponse: (response) => {
+        return response.sort((historyA, historyB) => {
+          return historyB.created_at - historyA.created_at;
+        });
+      },
     }),
     addHistory: builder.mutation({
       query: (id) => ({

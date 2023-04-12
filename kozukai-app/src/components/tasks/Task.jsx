@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-  Card,
   Box,
   Button,
   TextField,
   Typography,
   Tooltip,
   InputAdornment,
+  useTheme,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { ClickAwayListener } from "@mui/base";
@@ -21,6 +21,7 @@ import { actionColors } from "../../contexts/styles";
 export default function Task({ task }) {
   const { id, title, value, created_at } = task;
 
+  const theme = useTheme();
   const [editTitle, setEditTitle] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const [editValue, setEditValue] = useState(false);
@@ -34,11 +35,8 @@ export default function Task({ task }) {
   const handleTrackTaskClick = () => {
     triggerAddHistoryMutation(id)
       .unwrap()
-      .then((response) => {
-        console.log(response);
-      })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -70,8 +68,8 @@ export default function Task({ task }) {
     if (newTitle !== title || newValue !== value) {
       triggerUpdateTaskMutation(updatedTask)
         .unwrap()
-        .catch((e) => {
-          console.log(e);
+        .catch((error) => {
+          console.log(error);
         });
     }
   };
@@ -89,8 +87,14 @@ export default function Task({ task }) {
 
   return (
     !toDelete && (
-      <Card
-        sx={{ display: "flex", alignItems: "center", p: 1.5, px: 3, mb: 2 }}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          p: 1.5,
+          px: 3,
+          borderBottom: `1px solid ${theme.palette.primary.dark}`,
+        }}
       >
         <Box sx={{ display: "flex", width: "100%", pr: 2 }}>
           <Box
@@ -180,7 +184,7 @@ export default function Task({ task }) {
             </Button>
           </Tooltip>
         </Box>
-      </Card>
+      </Box>
     )
   );
 }

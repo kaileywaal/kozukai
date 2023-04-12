@@ -1,16 +1,10 @@
 import React from "react";
-import { Box, Typography, Card, useTheme } from "@mui/material";
+import { Card } from "@mui/material";
 import { useGetHistoryQuery } from "../../features/history";
-import { actionColors } from "../../contexts/styles";
 import History from "./History";
 
 export default function HistoryList() {
-  const {
-    data: history,
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetHistoryQuery();
+  const { data: history, isLoading } = useGetHistoryQuery();
 
   return (
     <Card
@@ -18,12 +12,12 @@ export default function HistoryList() {
         width: "100%",
         mb: 1,
         overflow: "auto",
-        maxHeight: { xs: "200px", md: "50vh" },
+        maxHeight: { xs: "auto", sm: "200px", md: "50vh" },
       }}
     >
       {!isLoading &&
         history.map((value) => {
-          return <History history={value} />;
+          return <History history={value} key={value.id} />;
         })}
     </Card>
   );

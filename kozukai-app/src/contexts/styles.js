@@ -15,7 +15,7 @@ export const actionColors = {
     light: "#fce2da",
     medium: "#f9cec2",
     main: "#c93b13",
-    dark: "#D84F90",
+    dark: "#6f4d43",
   },
   information: {
     light: "#E5F6FE",

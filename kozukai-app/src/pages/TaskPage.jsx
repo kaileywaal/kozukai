@@ -1,6 +1,6 @@
 import TaskList from "../components/tasks/TaskList";
 import TaskBar from "../components/tasks/TaskBar";
-import { Container, Box, Grid } from "@mui/material";
+import { Container, Box, Grid, Typography } from "@mui/material";
 import Balance from "../components/balance/Balance";
 import HistoryList from "../components/balance/HistoryList";
 
@@ -16,16 +16,27 @@ function TaskPage() {
       }}
     >
       <Grid container spacing={2} sx={{ width: { md: "300px" } }}>
-        <Grid item xs={4} sm={4} md={12} lg={12} xl={12}>
+        <Grid item xs={12} sm={4} md={12} lg={12} xl={12}>
           <Balance />
         </Grid>
-        <Grid item xs={8} sm={8} md={12} lg={12} xl={12}>
+        <Grid
+          item
+          sm={8}
+          md={12}
+          lg={12}
+          xl={12}
+          sx={{ display: { xs: "none", sm: "block" } }}
+        >
           <HistoryList />
         </Grid>
       </Grid>
       <Box sx={{ flexGrow: 1 }}>
         <TaskBar />
         <TaskList />
+      </Box>
+      <Box sx={{ display: { xs: "block", sm: "none" } }}>
+        <Typography variant="h6">History</Typography>
+        <HistoryList />
       </Box>
     </Container>
   );

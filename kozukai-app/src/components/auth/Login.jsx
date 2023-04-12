@@ -1,38 +1,35 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
   Box,
   Button,
-  Alert,
   TextField,
   Typography,
   Container,
 } from "@mui/material";
 import { useLoginMutation } from "../../features/auth";
-import { useTheme } from "@mui/material";
+import AlertError from "../ui/errors/AlertError";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigation = useNavigate();
-  const [login, data, isLoading] = useLoginMutation();
-  const theme = useTheme();
+  const [login] = useLoginMutation();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      setError("");
-      setLoading(true);
-      await login({ email, password }).then(console.log(data));
-      navigation("/");
-    } catch {
-      setError("Failed to sign in");
-    }
+    login({ email, password })
+      .unwrap()
+      .then(() => {
+        navigation("/");
+      })
+      .catch((error) => {
+        setError(error);
+      });
   }
 
   const handleEmailChange = (event) => {
@@ -72,7 +69,7 @@ export default function Login() {
             <Typography variant="h1" sx={{ pb: 2 }}>
               Log In
             </Typography>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {error && <AlertError errorMessage={error.data.message} />}
             <Box component="form" onSubmit={handleSubmit}>
               <TextField
                 id="email"
@@ -93,7 +90,6 @@ export default function Login() {
                 sx={{ width: "100%", marginBottom: "10px" }}
               />
               <Button
-                disabled={loading}
                 type="submit"
                 variant="contained"
                 sx={{ width: "100%", maxWidth: "175px", mt: 2 }}

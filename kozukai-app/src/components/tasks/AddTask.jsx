@@ -16,7 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 export default function AddTask() {
   const theme = useTheme();
 
-  const [triggerAddTask, resultAddTask] = useAddTaskMutation();
+  const [triggerAddTask] = useAddTaskMutation();
   const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -106,6 +106,20 @@ export default function AddTask() {
             }}
             sx={{ width: "100%", marginBottom: "10px" }}
           />
+
+          <Button
+            variant="contained"
+            onClick={handleAddTask}
+            disabled={isSubmitDisabled()}
+            sx={{
+              width: "100%",
+              maxWidth: "175px",
+              mt: 2,
+              mr: 1,
+            }}
+          >
+            Add task
+          </Button>
           <Button
             variant="outlined"
             onClick={handleModalClose}
@@ -113,7 +127,6 @@ export default function AddTask() {
               width: "100%",
               maxWidth: "175px",
               mt: 2,
-              mr: 1,
               border: `2px solid ${actionColors.error.main}`,
               color: actionColors.error.main,
               backgroundColor: theme.palette.primary.light,
@@ -125,18 +138,6 @@ export default function AddTask() {
             }}
           >
             Cancel
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleAddTask}
-            disabled={isSubmitDisabled()}
-            sx={{
-              width: "100%",
-              maxWidth: "175px",
-              mt: 2,
-            }}
-          >
-            Add task
           </Button>
         </Card>
       </Modal>
