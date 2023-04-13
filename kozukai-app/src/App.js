@@ -1,17 +1,15 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Box } from "@mui/material";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./contexts/store";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import PrivateRoute from "./components/auth/PrivateRoute";
-import Task from "./components/tasks/Task";
-import TaskList from "./components/tasks/TaskList";
-import AddTask from "./components/tasks/AddTask";
 import TaskPage from "./pages/TaskPage";
+import Navbar from "./components/navigation/NavBar";
 
 function App() {
   let colorTheme = createTheme({
@@ -151,25 +149,25 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        {/* <AuthProvider> */}
-        <Box
-          sx={{
-            display: "flex",
-            minHeight: "100vh",
-            backgroundColor: theme.palette.primary.light,
-          }}
-        >
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <PrivateRoute>
-                  <TaskPage />
-                </PrivateRoute>
-              }
-            />
-            {/* <Route
+        <Box sx={{ minHeight: "100vh" }}>
+          <Navbar />
+          <Box
+            sx={{
+              display: "flex",
+              backgroundColor: theme.palette.primary.light,
+            }}
+          >
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <TaskPage />
+                  </PrivateRoute>
+                }
+              />
+              {/* <Route
                 path="/update-profile"
                 element={
                   <PrivateRoute>
@@ -177,11 +175,11 @@ function App() {
                   </PrivateRoute>
                 }
               /> */}
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </Box>
         </Box>
-        {/* </AuthProvider> */}
       </Provider>
     </ThemeProvider>
   );

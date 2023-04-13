@@ -1,9 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useGetUserQuery } from "../../features/auth";
 
 export default function PrivateRoute({ children }) {
-  const { data, isLoading } = useGetUserQuery();
+  const isLoggedIn = localStorage.getItem("AUTH_TOKEN").length > 0;
 
-  return !isLoading && (data ? children : <Navigate replace to="/login" />);
+  return isLoggedIn ? children : <Navigate replace to="/login" />;
 }

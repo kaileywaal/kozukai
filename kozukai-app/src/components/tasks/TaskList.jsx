@@ -4,11 +4,11 @@ import Task from "./Task";
 import { useGetTasksQuery } from "../../features/tasks";
 
 export default function TaskList() {
-  const { data: tasks, isLoading } = useGetTasksQuery();
+  const { data: tasks } = useGetTasksQuery();
 
   return (
     <Card>
-      {!isLoading &&
+      {tasks &&
         tasks.map((task) => {
           return <Task task={task} key={task.id} />;
         })}

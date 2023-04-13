@@ -8,23 +8,25 @@ export default function TaskBar() {
   const { data } = useGetUserQuery();
 
   return (
-    <Card
-      sx={{
-        backgroundColor: theme.palette.primary.dark,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        p: 1,
-        px: 3,
-        mb: 2,
-      }}
-    >
-      <Typography
-        sx={{ color: theme.palette.primary.light, fontWeight: "bold" }}
+    data && (
+      <Card
+        sx={{
+          backgroundColor: theme.palette.primary.dark,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          p: 1,
+          px: 3,
+          mb: 2,
+        }}
       >
-        Welcome Back, {data.name}!
-      </Typography>
-      <AddTask />
-    </Card>
+        <Typography
+          sx={{ color: theme.palette.primary.light, fontWeight: "bold" }}
+        >
+          👋🏼 Welcome Back, {data.name}!
+        </Typography>
+        <AddTask />
+      </Card>
+    )
   );
 }

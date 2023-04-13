@@ -12,7 +12,7 @@ function TaskPage() {
         flexDirection: { xs: "column", md: "row" },
         gap: 4,
         flexWrap: "wrap",
-        mt: 8,
+        mt: 4,
       }}
     >
       <Grid container spacing={2} sx={{ width: { md: "300px" } }}>

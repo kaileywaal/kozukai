@@ -4,7 +4,7 @@ import { useGetHistoryQuery } from "../../features/history";
 import History from "./History";
 
 export default function HistoryList() {
-  const { data: history, isLoading } = useGetHistoryQuery();
+  const { data: history } = useGetHistoryQuery();
 
   return (
     <Card
@@ -15,7 +15,7 @@ export default function HistoryList() {
         maxHeight: { xs: "auto", sm: "200px", md: "50vh" },
       }}
     >
-      {!isLoading &&
+      {history &&
         history.map((value) => {
           return <History history={value} key={value.id} />;
         })}

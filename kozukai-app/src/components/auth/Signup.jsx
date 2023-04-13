@@ -22,7 +22,7 @@ export default function Signup() {
   const [error, setError] = useState(null);
   const navigation = useNavigate();
 
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
@@ -37,7 +37,7 @@ export default function Signup() {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   const handleNameChange = (event) => {
     event.preventDefault();

@@ -19,7 +19,7 @@ export default function Login() {
   const navigation = useNavigate();
   const [login] = useLoginMutation();
 
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     login({ email, password })
@@ -30,7 +30,7 @@ export default function Login() {
       .catch((error) => {
         setError(error);
       });
-  }
+  };
 
   const handleEmailChange = (event) => {
     event.preventDefault();
