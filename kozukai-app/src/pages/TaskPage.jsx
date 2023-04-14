@@ -9,13 +9,21 @@ function TaskPage() {
     <Container
       sx={{
         display: "flex",
+        minHeight: "90vh",
         flexDirection: { xs: "column", md: "row" },
         gap: 4,
         flexWrap: "wrap",
-        mt: 4,
+        my: 4,
       }}
     >
-      <Grid container spacing={2} sx={{ width: { md: "300px" } }}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          width: { md: "300px" },
+          alignContent: "flex-start",
+        }}
+      >
         <Grid item xs={12} sm={4} md={12} lg={12} xl={12}>
           <Balance />
         </Grid>
@@ -25,7 +33,7 @@ function TaskPage() {
           md={12}
           lg={12}
           xl={12}
-          sx={{ display: { xs: "none", sm: "block" } }}
+          sx={{ display: { xs: "none", sm: "flex" } }}
         >
           <HistoryList />
         </Grid>

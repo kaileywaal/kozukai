@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQuery } from "./helper";
+import { baseQuery, generateTempId } from "./helper";
 
 // Define a service using a base URL and expected endpoints
 export const taskApi = createApi({
@@ -14,7 +14,7 @@ export const taskApi = createApi({
       providesTags: ["Task"],
       transformResponse: (response) => {
         return response.sort((taskA, taskB) => {
-          return taskB.created_at - taskA.created_at;
+          return taskA.created_at - taskB.created_at;
         });
       },
     }),
@@ -24,7 +24,27 @@ export const taskApi = createApi({
         method: "POST",
         body: { title: task.title, value: task.value },
       }),
-      invalidatesTags: ["Task"],
+      async onQueryStarted({ task }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          taskApi.util.updateQueryData("getTasks", undefined, (taskList) => {
+            const tempTask = { ...task, id: generateTempId() };
+            taskList.push(tempTask);
+          })
+        );
+        try {
+          // once we get the result back, replace the tempTask with the actual data
+          const newTask = await queryFulfilled;
+          patchResult.undo();
+          dispatch(
+            taskApi.util.updateQueryData("getTasks", undefined, (taskList) => {
+              taskList.unshift(newTask.data);
+            })
+          );
+        } catch {
+          patchResult.undo();
+          // TODO: Add error handling here so that if the task is not added, users will know there was an issue
+        }
+      },
     }),
     updateTask: builder.mutation({
       query: (task) => ({
@@ -38,7 +58,7 @@ export const taskApi = createApi({
         url: `/task/${task.id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Task"],
+      //  invalidatesTags: ["Task"],
     }),
   }),
 });

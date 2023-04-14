@@ -12,7 +12,7 @@ export default function HistoryList() {
         width: "100%",
         mb: 1,
         overflow: "auto",
-        maxHeight: { xs: "auto", sm: "200px", md: "50vh" },
+        maxHeight: { xs: "auto", sm: "200px", md: "none" },
       }}
     >
       {history &&

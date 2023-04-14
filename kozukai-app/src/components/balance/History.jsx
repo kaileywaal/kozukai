@@ -33,7 +33,6 @@ export default function History({ history }) {
   return (
     <Box
       sx={{
-        height: "100%",
         display: "flex",
         p: 2,
         borderBottom: `1px solid ${theme.palette.primary.dark}`,
