@@ -25,6 +25,7 @@ export const taskApi = createApi({
         body: { title: task.title, value: task.value },
       }),
       async onQueryStarted({ task }, { dispatch, queryFulfilled }) {
+        // add temporary data to the task list so the new task will show up immediately
         const patchResult = dispatch(
           taskApi.util.updateQueryData("getTasks", undefined, (taskList) => {
             const tempTask = { ...task, id: generateTempId() };
@@ -56,7 +57,8 @@ export const taskApi = createApi({
     deleteTask: builder.mutation({
       query: (task) => ({
         url: `/task/${task.id}`,
-        method: "DELETE",
+        method: "POST",
+        body: { ...task, Active: "false" },
       }),
       //  invalidatesTags: ["Task"],
     }),

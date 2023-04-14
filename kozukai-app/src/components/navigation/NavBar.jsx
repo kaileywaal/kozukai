@@ -38,7 +38,6 @@ export default function Navbar() {
     navigation("/login");
   };
 
-  console.log(data);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
