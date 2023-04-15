@@ -11,6 +11,8 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApi, useGetUserQuery } from "../../features/auth";
+import { taskApi } from "../../features/tasks";
+import { historyApi } from "../../features/history";
 import { useDispatch } from "react-redux";
 
 export default function Navbar() {
@@ -33,8 +35,10 @@ export default function Navbar() {
   const handleLogout = () => {
     handleClose();
     localStorage.removeItem("AUTH_TOKEN");
-    // clear all auth data from cache
+    // clear all user data from cache
     dispatch(authApi.util.resetApiState());
+    dispatch(taskApi.util.resetApiState());
+    dispatch(historyApi.util.resetApiState());
     navigation("/login");
   };
 
