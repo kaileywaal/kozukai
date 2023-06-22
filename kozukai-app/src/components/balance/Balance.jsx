@@ -26,15 +26,14 @@ export default function Balance() {
         width: "100%",
         height: "200px",
         mb: 2,
+        display: "flex",
+        flexDirection: "column-reverse",
+        alignItems: "flex-end",
         background: `linear-gradient(110deg, ${theme.palette.custom.dark}, ${theme.palette.custom.medium}, ${theme.palette.secondary.main}, ${theme.palette.custom.light})`,
       }}
     >
       <Box
         sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column-reverse",
-          alignItems: "flex-end",
           p: 3,
         }}
       >
