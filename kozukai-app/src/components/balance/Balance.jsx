@@ -18,7 +18,7 @@ export default function Balance() {
       }, 0);
     }
     return 0;
-  }, [history]);
+  }, [history, isError, isFetching, isLoading]);
 
   return (
     <Card
