@@ -12,12 +12,9 @@ import { useAddTaskMutation } from "../../features/tasks";
 import { useTheme } from "@mui/material";
 import { actionColors } from "../../contexts/styles";
 import AddIcon from "@mui/icons-material/Add";
-import { useDispatch } from "react-redux";
-import { taskApi } from "../../features/tasks";
 
 export default function AddTask() {
   const theme = useTheme();
-  const dispatch = useDispatch();
 
   const [triggerAddTask] = useAddTaskMutation();
   const [title, setTitle] = useState("");

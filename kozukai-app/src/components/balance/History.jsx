@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Typography, Card, useTheme } from "@mui/material";
-import { useGetHistoryQuery } from "../../features/history";
+import { Box, Typography, useTheme } from "@mui/material";
 import { actionColors } from "../../contexts/styles";
 
 export default function History({ history }) {
