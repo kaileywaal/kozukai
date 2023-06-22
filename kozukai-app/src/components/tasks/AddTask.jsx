@@ -28,7 +28,10 @@ export default function AddTask() {
 
   const handleValueChange = (e) => {
     e.preventDefault();
-    setValue(e.target.value);
+    const t = e.target.value;
+    const validatedValue =
+      e.target.value.indexOf(".") >= 0 ? t.slice(0, t.indexOf(".") + 3) : t;
+    setValue(validatedValue);
   };
 
   const handleAddTask = () => {
